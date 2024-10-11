@@ -31,7 +31,7 @@
 // based on items and file extensions specified in a configuration file (config.json).
 //
 // Example:
-// $ backup_utility <source_dir> <target_dir>
+// $ snapshotter <source_dir> <target_dir>
 
 mod backup;
 mod config;
