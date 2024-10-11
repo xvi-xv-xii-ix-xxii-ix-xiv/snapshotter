@@ -17,7 +17,6 @@ Installation
 1. Clone the repository
 ```bash
    git clone https://github.com/Yngvarrrr/snapshotter.git
-   git clone https://github.com/Yngvarrrr/snapshotter.git
 ```
 
 3. Install dependencies
