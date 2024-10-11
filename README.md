@@ -15,7 +15,7 @@ Easy command-line usage with the option to specify a configuration section.
 Installation
 
 1. Clone the repository
-   git clone https://github.com/your-repo/backup.git
+   git clone https://github.com/Yngvarrrr/snapshotter.git
 
 2. Install dependencies
    Ensure you have Rust and Cargo installed on your system. You can install Rust using rustup.
