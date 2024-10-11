@@ -15,12 +15,17 @@ Easy command-line usage with the option to specify a configuration section.
 Installation
 
 1. Clone the repository
+```bash
    git clone https://github.com/Yngvarrrr/snapshotter.git
+   git clone https://github.com/Yngvarrrr/snapshotter.git
+```
 
-2. Install dependencies
+3. Install dependencies
    Ensure you have Rust and Cargo installed on your system. You can install Rust using rustup.
+```bash
    cd snapshotter
    cargo build --release
+```
 
 This will compile the utility and produce an executable in the target/release/ directory.
 
@@ -35,10 +40,14 @@ backup <source_dir> <target_dir> [config_section]
 
 Example
 Backup a Python project:
+```bash
 snapshotter /path/to/python_project /path/to/backup python
+```
 
 Backup using the default section:
+```bash
 snapshotter /path/to/important_docs /path/to/backup
+```
 
 Configuration
 
