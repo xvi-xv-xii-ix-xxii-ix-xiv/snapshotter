@@ -1,0 +1,22 @@
+{
+  "default": {
+    "excluded_items": [
+      ".venv",
+      "venv",
+      "data",
+      "target",
+      "debug",
+      "tmp",
+      "temp"
+    ],
+    "excluded_extensions": ["pyc", "log", "cache", "lock", "rlib"]
+  },
+  "python": {
+    "excluded_items": [".venv", "venv", "data"],
+    "excluded_extensions": ["pyc", "log", "cache"]
+  },
+  "rust": {
+    "excluded_items": ["target", "debug"],
+    "excluded_extensions": ["rlib", "lock"]
+  }
+}
