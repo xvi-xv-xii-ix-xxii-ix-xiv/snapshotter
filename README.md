@@ -46,6 +46,7 @@ The configuration file config.json is used to define what files and directories 
 It supports multiple sections for different environments (e.g., python, rust, default).
 
 Example config.json:
+```json
 {
   "default": {
     "excluded_items": [
@@ -68,6 +69,7 @@ Example config.json:
     "excluded_extensions": ["rlib", "lock"]
   }
 }
+```
 
 Each section defines two parameters:
 
@@ -77,10 +79,12 @@ If no configuration section is specified in the command, the default section wil
 
 Adding more sections
 To support new environments, simply add new sections in the config.json file. For example:
+```json
   "javascript": {
     "excluded_items": ["target", "debug"],
     "excluded_extensions": ["rlib", "lock"]
   }
+```
 
 License
 
