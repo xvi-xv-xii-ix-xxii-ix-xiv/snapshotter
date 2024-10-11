@@ -2,6 +2,12 @@
 name = "snapshotter"
 version = "1.0.0"
 edition = "2021"
+authors = ["xvi.xv.xii.ix.xxii.ix.xiv <xvi.xv.xii.ix.xxii.ix.xiv@gmail.com>"]
+edition = "2021"
+description = "This is a directory backup utility that allows you to exclude specific files and directories as defined in a configuration file (config.json). The tool supports multiple configuration sections, such as Python, Rust, or a default section, giving you flexibility over which files and folders to exclude during backup."
+repository = "   git clone https://github.com/xvi-xv-xii-ix-xxii-ix-xiv/snapshotter.git"
+license = "MIT"
+
 
 [dependencies]
 chrono = "0.4"

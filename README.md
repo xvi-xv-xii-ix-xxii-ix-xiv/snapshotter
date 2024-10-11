@@ -15,12 +15,14 @@ Easy command-line usage with the option to specify a configuration section.
 Installation
 
 1. Clone the repository
+
 ```bash
-   git clone https://github.com/Yngvarrrr/snapshotter.git
+   git clone https://github.com/xvi-xv-xii-ix-xxii-ix-xiv/snapshotter.git
 ```
 
 3. Install dependencies
    Ensure you have Rust and Cargo installed on your system. You can install Rust using rustup.
+
 ```bash
    cd snapshotter
    cargo build --release
@@ -39,11 +41,13 @@ backup <source_dir> <target_dir> [config_section]
 
 Example
 Backup a Python project:
+
 ```bash
 snapshotter /path/to/python_project /path/to/backup python
 ```
 
 Backup using the default section:
+
 ```bash
 snapshotter /path/to/important_docs /path/to/backup
 ```
@@ -54,6 +58,7 @@ The configuration file config.json is used to define what files and directories 
 It supports multiple sections for different environments (e.g., python, rust, default).
 
 Example config.json:
+
 ```json
 {
   "default": {
@@ -87,6 +92,7 @@ If no configuration section is specified in the command, the default section wil
 
 Adding more sections
 To support new environments, simply add new sections in the config.json file. For example:
+
 ```json
   "javascript": {
     "excluded_items": ["target", "debug"],
