@@ -1,5 +1,5 @@
 // Backup Utility
-// Version: 1.0.0
+// Version: 1.2.0
 //
 // Author: XVI.XV.XII.IX.XXII.IX.XIV
 // License: MIT License
