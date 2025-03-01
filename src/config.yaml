@@ -1,0 +1,36 @@
+# Default configuration for general backups
+default:
+  skip_folders_and_files:
+    - .venv       # Virtual environment directory
+    - venv
+    - data        # Temporary data folder
+    - target      # Rust build directory
+    - debug       # Debug build artifacts
+    - tmp         # Temporary directory
+    - temp
+  skip_file_extensions:
+    - pyc         # Python compiled files
+    - log         # Log files
+    - cache       # Cache files
+    - lock        # Lock files
+    - rlib        # Rust library files
+
+# Configuration for Python projects
+python:
+  skip_folders_and_files:
+    - .venv       # Virtual environment
+    - venv
+    - data        # Temporary data
+  skip_file_extensions:
+    - pyc         # Python compiled files
+    - log         # Log files
+    - cache       # Cache files
+
+# Configuration for Rust projects
+rust:
+  skip_folders_and_files:
+    - target      # Rust build directory
+    - debug       # Debug build artifacts
+  skip_file_extensions:
+    - rlib        # Rust library files
+    - lock        # Cargo lock file

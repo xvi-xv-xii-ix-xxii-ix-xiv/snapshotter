@@ -1,44 +1,94 @@
 use serde::Deserialize;
-use std::env;
 use std::fs;
+use thiserror::Error;
 
-/// Struct representing the configuration loaded from the JSON file.
-#[derive(Deserialize)]
-pub struct Config {
-    pub excluded_items: Vec<String>,
-    pub excluded_extensions: Vec<String>,
+/// Errors related to loading the configuration file.
+#[derive(Error, Debug)]
+pub enum ConfigError {
+    /// An I/O error occurred while reading the configuration file.
+    #[error("I/O error: {0}")]
+    Io(#[from] std::io::Error),
+
+    /// An error occurred while parsing the YAML configuration file.
+    #[error("Failed to parse YAML: {0}")]
+    YamlParse(#[from] serde_yaml::Error),
+
+    /// The specified section was not found in the configuration file, and no default section was provided.
+    #[error("Section '{0}' not found and no default section provided")]
+    SectionNotFound(String),
 }
 
-/// Loads the configuration for a specific section from the JSON file located in the same directory as the executable.
+/// Represents the configuration loaded from the YAML file.
+///
+/// The configuration specifies which files and folders to skip during the backup process.
+#[derive(Deserialize)]
+pub struct Config {
+    /// A list of folder and file names to skip during the backup.
+    pub skip_folders_and_files: Vec<String>,
+
+    /// A list of file extensions to skip during the backup.
+    pub skip_file_extensions: Vec<String>,
+}
+
+/// Loads the configuration for a specific section from the YAML file.
+///
+/// The configuration file (`config.yaml`) should be located in the same directory as the executable.
+/// If the specified section is not found, the function will attempt to load the `default` section.
 ///
 /// # Parameters
-/// - `section`: The section of the config (e.g., "python", "rust") to load.
+/// - `section`: The section of the config to load (e.g., "python", "rust").
 ///
 /// # Returns
-/// - A `Config` struct with excluded items and extensions.
-/// - Returns `std::io::Result<Config>` which contains a Config instance if successful.
+/// - `Ok(Config)`: A `Config` struct containing the configuration for the specified section.
+/// - `Err(ConfigError)`: If the configuration file cannot be read, parsed, or if the section does not exist.
 ///
-/// # Errors
-/// - Will return an error if the config file cannot be read or parsed, or if the section does not exist.
+/// # Examples
 ///
-/// # Panics
-/// - Panics if the JSON file cannot be deserialized into the `Config` struct.
-pub fn load_config(section: &str) -> std::io::Result<Config> {
-    let exe_path = env::current_exe()?; // Get the path of the executable
-    let config_path = exe_path.parent().unwrap().join("config.json"); // Construct the path to the configuration file
+/// Example `config.yaml`:
+/// ```yaml
+/// default:
+///   skip_folders_and_files:
+///     - "temp"
+///     - "*.log"
+///   skip_file_extensions:
+///     - "tmp"
+///     - "bak"
+///
+/// python:
+///   skip_folders_and_files:
+///     - "__pycache__"
+///   skip_file_extensions:
+///     - "pyc"
+/// ```
+///
+/// Loading the configuration:
+/// ```rust
+/// use snapshotter::config::load_config;
+///
+/// let config = load_config("python").unwrap();
+/// println!("Skipping folders: {:?}", config.skip_folders_and_files);
+/// ```
+pub fn load_config(section: &str) -> Result<Config, ConfigError> {
+    // Get the path to the executable
+    let exe_path = std::env::current_exe()?;
 
-    let data = fs::read_to_string(config_path)?; // Read the config file as a string
-    let all_config: serde_json::Value = serde_json::from_str(&data).expect("Error parsing JSON");
+    // Construct the path to the configuration file
+    let config_path = exe_path.parent().unwrap().join("config.yaml");
 
-    // Try to get the specified section, fallback to default if section is not found
+    // Read the configuration file
+    let data = fs::read_to_string(config_path)?;
+
+    // Parse the YAML file into a serde_yaml::Value
+    let all_config: serde_yaml::Value = serde_yaml::from_str(&data)?;
+
+    // Get the specified section or fall back to the "default" section
     let section_config = all_config
         .get(section)
         .or_else(|| all_config.get("default"))
-        .expect("No section found in config, and no default section provided");
+        .ok_or_else(|| ConfigError::SectionNotFound(section.to_string()))?;
 
     // Deserialize the section into a Config struct
-    let config: Config =
-        serde_json::from_value(section_config.clone()).expect("Error parsing section config");
+    let config = serde_yaml::from_value(section_config.clone())?;
 
     Ok(config)
 }

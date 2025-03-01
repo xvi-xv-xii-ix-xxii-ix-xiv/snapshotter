@@ -1,15 +1,33 @@
 [package]
 name = "snapshotter"
-version = "1.0.0"
+version = "1.2.0"
 edition = "2021"
 authors = ["xvi.xv.xii.ix.xxii.ix.xiv <xvi.xv.xii.ix.xxii.ix.xiv@gmail.com>"]
-edition = "2021"
-description = "This is a directory backup utility that allows you to exclude specific files and directories as defined in a configuration file (config.json). The tool supports multiple configuration sections, such as Python, Rust, or a default section, giving you flexibility over which files and folders to exclude during backup."
-repository = "   git clone https://github.com/xvi-xv-xii-ix-xxii-ix-xiv/snapshotter.git"
+description = "A directory backup utility that allows excluding specific files and directories as defined in a configuration file (config.yaml). Supports multiple configuration sections (e.g., Python, Rust, or default) for flexible backup customization."
+repository = "https://github.com/xvi-xv-xii-ix-xxii-ix-xiv/snapshotter.git"
 license = "MIT"
-
+homepage = "https://github.com/xvi-xv-xii-ix-xxii-ix-xiv/snapshotter"
+readme = "README.md"
+keywords = ["backup", "utility", "filesystem", "rust", "configuration"]
+categories = ["command-line-utilities", "filesystem"]
+exclude = ["/target/*", "*.log"]
 
 [dependencies]
-chrono = "0.4"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
+chrono = "0.4.40"
+serde = { version = "1.0.218", features = ["derive"] }
+serde_yaml = "0.9.34"
+thiserror = "2.0.11"
+rayon = "1.10.0"
+glob = "0.3.2"
+tar = "0.4.44"
+flate2 = "1.1.0"
+log = "0.4.26"
+simplelog = "0.12.2"
+sha2 = "0.10.8"
+clap = { version = "4.0", features = ["derive"] }
+lazy_static = "1.5.0"
+
+[profile.release]
+opt-level = 3
+strip = true
+lto = true
