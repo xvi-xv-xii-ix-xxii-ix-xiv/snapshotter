@@ -173,10 +173,4 @@ Contributions are welcome! Please fork the repository, create a branch, and subm
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Author
-
-Developed by XVI.XV.XII.IX.XXII.IX.XIV
+## Autor & Developed by XVI.XV.XII.IX.XXII.IX.XIV
